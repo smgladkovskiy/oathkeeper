@@ -20,7 +20,7 @@
 
 package main
 
-import "github.com/ory/oathkeeper/cmd"
+import "github.com/7phs/oathkeeper/cmd"
 
 func main() {
 	cmd.Execute()

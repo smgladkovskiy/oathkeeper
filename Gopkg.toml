@@ -157,6 +157,10 @@
   name = "gopkg.in/square/go-jose.v2"
   version = "2.1.6"
 
+[[constraint]]
+  branch = "master"
+  name = "github.com/ory/oathkeeper"
+
 [prune]
   go-tests = true
   unused-packages = true
