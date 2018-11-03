@@ -14,7 +14,7 @@ RUN dep ensure -vendor-only
 
 ADD . .
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "-s -X github.com/ory/oathkeeper/cmd.Version=$git_tag -X github.com/ory/oathkeeper/cmd.BuildTime=`TZ=UTC date -u '+%Y-%m-%dT%H:%M:%SZ'` -X github.com/ory/oathkeeper/cmd.GitHash=$git_commit" -a -installsuffix cgo -o oathkeeper
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "-s -X github.com/7phs/oathkeeper/cmd.Version=$git_tag -X github.com/7phs/oathkeeper/cmd.BuildTime=`TZ=UTC date -u '+%Y-%m-%dT%H:%M:%SZ'` -X github.com/7phs/oathkeeper/cmd.GitHash=$git_commit" -a -installsuffix cgo -o oathkeeper
 
 FROM scratch
 
