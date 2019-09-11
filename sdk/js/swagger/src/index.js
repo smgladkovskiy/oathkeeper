@@ -17,12 +17,12 @@
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/AuthenticationDefaultSession', 'model/AuthenticationOAuth2ClientCredentialsRequest', 'model/AuthenticationOAuth2ClientCredentialsSession', 'model/AuthenticationOAuth2IntrospectionRequest', 'model/AuthenticationOAuth2Session', 'model/Authenticator', 'model/HealthNotReadyStatus', 'model/HealthStatus', 'model/InlineResponse401', 'model/IntrospectionResponse', 'model/JsonWebKey', 'model/JsonWebKeySet', 'model/OAuth2ClientCredentialsAuthentication', 'model/OAuth2IntrospectionAuthentication', 'model/Rule', 'model/RuleHandler', 'model/RuleMatch', 'model/Session', 'model/SwaggerCreateRuleParameters', 'model/SwaggerGetRuleParameters', 'model/SwaggerListRulesParameters', 'model/SwaggerRuleResponse', 'model/SwaggerRulesResponse', 'model/SwaggerUpdateRuleParameters', 'model/Upstream', 'model/Version', 'api/DefaultApi', 'api/HealthApi', 'api/JudgeApi', 'api/RuleApi', 'api/VersionApi'], factory);
+    define(['ApiClient', 'model/CreateRuleCreated', 'model/CreateRuleForbidden', 'model/CreateRuleForbiddenBody', 'model/CreateRuleInternalServerError', 'model/CreateRuleInternalServerErrorBody', 'model/CreateRuleReader', 'model/CreateRuleUnauthorized', 'model/CreateRuleUnauthorizedBody', 'model/DecisionsForbidden', 'model/DecisionsForbiddenBody', 'model/DecisionsInternalServerError', 'model/DecisionsInternalServerErrorBody', 'model/DecisionsNotFound', 'model/DecisionsNotFoundBody', 'model/DecisionsOK', 'model/DecisionsReader', 'model/DecisionsUnauthorized', 'model/DecisionsUnauthorizedBody', 'model/DeleteRuleForbidden', 'model/DeleteRuleForbiddenBody', 'model/DeleteRuleInternalServerError', 'model/DeleteRuleInternalServerErrorBody', 'model/DeleteRuleNoContent', 'model/DeleteRuleNotFound', 'model/DeleteRuleNotFoundBody', 'model/DeleteRuleReader', 'model/DeleteRuleUnauthorized', 'model/DeleteRuleUnauthorizedBody', 'model/GetRuleForbidden', 'model/GetRuleForbiddenBody', 'model/GetRuleInternalServerError', 'model/GetRuleInternalServerErrorBody', 'model/GetRuleNotFound', 'model/GetRuleNotFoundBody', 'model/GetRuleOK', 'model/GetRuleReader', 'model/GetRuleUnauthorized', 'model/GetRuleUnauthorizedBody', 'model/GetWellKnownForbidden', 'model/GetWellKnownForbiddenBody', 'model/GetWellKnownJSONWebKeysInternalServerError', 'model/GetWellKnownJSONWebKeysInternalServerErrorBody', 'model/GetWellKnownJSONWebKeysOK', 'model/GetWellKnownJSONWebKeysReader', 'model/GetWellKnownOK', 'model/GetWellKnownReader', 'model/GetWellKnownUnauthorized', 'model/GetWellKnownUnauthorizedBody', 'model/HealthNotReadyStatus', 'model/HealthStatus', 'model/InlineResponse500', 'model/IsInstanceAliveInternalServerError', 'model/IsInstanceAliveInternalServerErrorBody', 'model/IsInstanceAliveOK', 'model/IsInstanceAliveReader', 'model/JsonWebKey', 'model/JsonWebKeySet', 'model/JudgeForbidden', 'model/JudgeForbiddenBody', 'model/JudgeInternalServerError', 'model/JudgeInternalServerErrorBody', 'model/JudgeNotFound', 'model/JudgeNotFoundBody', 'model/JudgeOK', 'model/JudgeReader', 'model/JudgeUnauthorized', 'model/JudgeUnauthorizedBody', 'model/ListRulesForbidden', 'model/ListRulesForbiddenBody', 'model/ListRulesInternalServerError', 'model/ListRulesInternalServerErrorBody', 'model/ListRulesOK', 'model/ListRulesReader', 'model/ListRulesUnauthorized', 'model/ListRulesUnauthorizedBody', 'model/RawMessage', 'model/Rule', 'model/RuleHandler', 'model/RuleMatch', 'model/SwaggerCreateRuleParameters', 'model/SwaggerGetRuleParameters', 'model/SwaggerHealthStatus', 'model/SwaggerJSONWebKey', 'model/SwaggerJSONWebKeySet', 'model/SwaggerListRulesParameters', 'model/SwaggerNotReadyStatus', 'model/SwaggerRule', 'model/SwaggerRuleHandler', 'model/SwaggerRuleMatch', 'model/SwaggerRuleResponse', 'model/SwaggerRulesResponse', 'model/SwaggerUpdateRuleParameters', 'model/SwaggerVersion', 'model/UpdateRuleForbidden', 'model/UpdateRuleForbiddenBody', 'model/UpdateRuleInternalServerError', 'model/UpdateRuleInternalServerErrorBody', 'model/UpdateRuleNotFound', 'model/UpdateRuleNotFoundBody', 'model/UpdateRuleOK', 'model/UpdateRuleReader', 'model/UpdateRuleUnauthorized', 'model/UpdateRuleUnauthorizedBody', 'model/Upstream', 'model/Version', 'api/ApiApi'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/AuthenticationDefaultSession'), require('./model/AuthenticationOAuth2ClientCredentialsRequest'), require('./model/AuthenticationOAuth2ClientCredentialsSession'), require('./model/AuthenticationOAuth2IntrospectionRequest'), require('./model/AuthenticationOAuth2Session'), require('./model/Authenticator'), require('./model/HealthNotReadyStatus'), require('./model/HealthStatus'), require('./model/InlineResponse401'), require('./model/IntrospectionResponse'), require('./model/JsonWebKey'), require('./model/JsonWebKeySet'), require('./model/OAuth2ClientCredentialsAuthentication'), require('./model/OAuth2IntrospectionAuthentication'), require('./model/Rule'), require('./model/RuleHandler'), require('./model/RuleMatch'), require('./model/Session'), require('./model/SwaggerCreateRuleParameters'), require('./model/SwaggerGetRuleParameters'), require('./model/SwaggerListRulesParameters'), require('./model/SwaggerRuleResponse'), require('./model/SwaggerRulesResponse'), require('./model/SwaggerUpdateRuleParameters'), require('./model/Upstream'), require('./model/Version'), require('./api/DefaultApi'), require('./api/HealthApi'), require('./api/JudgeApi'), require('./api/RuleApi'), require('./api/VersionApi'));
+    module.exports = factory(require('./ApiClient'), require('./model/CreateRuleCreated'), require('./model/CreateRuleForbidden'), require('./model/CreateRuleForbiddenBody'), require('./model/CreateRuleInternalServerError'), require('./model/CreateRuleInternalServerErrorBody'), require('./model/CreateRuleReader'), require('./model/CreateRuleUnauthorized'), require('./model/CreateRuleUnauthorizedBody'), require('./model/DecisionsForbidden'), require('./model/DecisionsForbiddenBody'), require('./model/DecisionsInternalServerError'), require('./model/DecisionsInternalServerErrorBody'), require('./model/DecisionsNotFound'), require('./model/DecisionsNotFoundBody'), require('./model/DecisionsOK'), require('./model/DecisionsReader'), require('./model/DecisionsUnauthorized'), require('./model/DecisionsUnauthorizedBody'), require('./model/DeleteRuleForbidden'), require('./model/DeleteRuleForbiddenBody'), require('./model/DeleteRuleInternalServerError'), require('./model/DeleteRuleInternalServerErrorBody'), require('./model/DeleteRuleNoContent'), require('./model/DeleteRuleNotFound'), require('./model/DeleteRuleNotFoundBody'), require('./model/DeleteRuleReader'), require('./model/DeleteRuleUnauthorized'), require('./model/DeleteRuleUnauthorizedBody'), require('./model/GetRuleForbidden'), require('./model/GetRuleForbiddenBody'), require('./model/GetRuleInternalServerError'), require('./model/GetRuleInternalServerErrorBody'), require('./model/GetRuleNotFound'), require('./model/GetRuleNotFoundBody'), require('./model/GetRuleOK'), require('./model/GetRuleReader'), require('./model/GetRuleUnauthorized'), require('./model/GetRuleUnauthorizedBody'), require('./model/GetWellKnownForbidden'), require('./model/GetWellKnownForbiddenBody'), require('./model/GetWellKnownJSONWebKeysInternalServerError'), require('./model/GetWellKnownJSONWebKeysInternalServerErrorBody'), require('./model/GetWellKnownJSONWebKeysOK'), require('./model/GetWellKnownJSONWebKeysReader'), require('./model/GetWellKnownOK'), require('./model/GetWellKnownReader'), require('./model/GetWellKnownUnauthorized'), require('./model/GetWellKnownUnauthorizedBody'), require('./model/HealthNotReadyStatus'), require('./model/HealthStatus'), require('./model/InlineResponse500'), require('./model/IsInstanceAliveInternalServerError'), require('./model/IsInstanceAliveInternalServerErrorBody'), require('./model/IsInstanceAliveOK'), require('./model/IsInstanceAliveReader'), require('./model/JsonWebKey'), require('./model/JsonWebKeySet'), require('./model/JudgeForbidden'), require('./model/JudgeForbiddenBody'), require('./model/JudgeInternalServerError'), require('./model/JudgeInternalServerErrorBody'), require('./model/JudgeNotFound'), require('./model/JudgeNotFoundBody'), require('./model/JudgeOK'), require('./model/JudgeReader'), require('./model/JudgeUnauthorized'), require('./model/JudgeUnauthorizedBody'), require('./model/ListRulesForbidden'), require('./model/ListRulesForbiddenBody'), require('./model/ListRulesInternalServerError'), require('./model/ListRulesInternalServerErrorBody'), require('./model/ListRulesOK'), require('./model/ListRulesReader'), require('./model/ListRulesUnauthorized'), require('./model/ListRulesUnauthorizedBody'), require('./model/RawMessage'), require('./model/Rule'), require('./model/RuleHandler'), require('./model/RuleMatch'), require('./model/SwaggerCreateRuleParameters'), require('./model/SwaggerGetRuleParameters'), require('./model/SwaggerHealthStatus'), require('./model/SwaggerJSONWebKey'), require('./model/SwaggerJSONWebKeySet'), require('./model/SwaggerListRulesParameters'), require('./model/SwaggerNotReadyStatus'), require('./model/SwaggerRule'), require('./model/SwaggerRuleHandler'), require('./model/SwaggerRuleMatch'), require('./model/SwaggerRuleResponse'), require('./model/SwaggerRulesResponse'), require('./model/SwaggerUpdateRuleParameters'), require('./model/SwaggerVersion'), require('./model/UpdateRuleForbidden'), require('./model/UpdateRuleForbiddenBody'), require('./model/UpdateRuleInternalServerError'), require('./model/UpdateRuleInternalServerErrorBody'), require('./model/UpdateRuleNotFound'), require('./model/UpdateRuleNotFoundBody'), require('./model/UpdateRuleOK'), require('./model/UpdateRuleReader'), require('./model/UpdateRuleUnauthorized'), require('./model/UpdateRuleUnauthorizedBody'), require('./model/Upstream'), require('./model/Version'), require('./api/ApiApi'));
   }
-}(function(ApiClient, AuthenticationDefaultSession, AuthenticationOAuth2ClientCredentialsRequest, AuthenticationOAuth2ClientCredentialsSession, AuthenticationOAuth2IntrospectionRequest, AuthenticationOAuth2Session, Authenticator, HealthNotReadyStatus, HealthStatus, InlineResponse401, IntrospectionResponse, JsonWebKey, JsonWebKeySet, OAuth2ClientCredentialsAuthentication, OAuth2IntrospectionAuthentication, Rule, RuleHandler, RuleMatch, Session, SwaggerCreateRuleParameters, SwaggerGetRuleParameters, SwaggerListRulesParameters, SwaggerRuleResponse, SwaggerRulesResponse, SwaggerUpdateRuleParameters, Upstream, Version, DefaultApi, HealthApi, JudgeApi, RuleApi, VersionApi) {
+}(function(ApiClient, CreateRuleCreated, CreateRuleForbidden, CreateRuleForbiddenBody, CreateRuleInternalServerError, CreateRuleInternalServerErrorBody, CreateRuleReader, CreateRuleUnauthorized, CreateRuleUnauthorizedBody, DecisionsForbidden, DecisionsForbiddenBody, DecisionsInternalServerError, DecisionsInternalServerErrorBody, DecisionsNotFound, DecisionsNotFoundBody, DecisionsOK, DecisionsReader, DecisionsUnauthorized, DecisionsUnauthorizedBody, DeleteRuleForbidden, DeleteRuleForbiddenBody, DeleteRuleInternalServerError, DeleteRuleInternalServerErrorBody, DeleteRuleNoContent, DeleteRuleNotFound, DeleteRuleNotFoundBody, DeleteRuleReader, DeleteRuleUnauthorized, DeleteRuleUnauthorizedBody, GetRuleForbidden, GetRuleForbiddenBody, GetRuleInternalServerError, GetRuleInternalServerErrorBody, GetRuleNotFound, GetRuleNotFoundBody, GetRuleOK, GetRuleReader, GetRuleUnauthorized, GetRuleUnauthorizedBody, GetWellKnownForbidden, GetWellKnownForbiddenBody, GetWellKnownJSONWebKeysInternalServerError, GetWellKnownJSONWebKeysInternalServerErrorBody, GetWellKnownJSONWebKeysOK, GetWellKnownJSONWebKeysReader, GetWellKnownOK, GetWellKnownReader, GetWellKnownUnauthorized, GetWellKnownUnauthorizedBody, HealthNotReadyStatus, HealthStatus, InlineResponse500, IsInstanceAliveInternalServerError, IsInstanceAliveInternalServerErrorBody, IsInstanceAliveOK, IsInstanceAliveReader, JsonWebKey, JsonWebKeySet, JudgeForbidden, JudgeForbiddenBody, JudgeInternalServerError, JudgeInternalServerErrorBody, JudgeNotFound, JudgeNotFoundBody, JudgeOK, JudgeReader, JudgeUnauthorized, JudgeUnauthorizedBody, ListRulesForbidden, ListRulesForbiddenBody, ListRulesInternalServerError, ListRulesInternalServerErrorBody, ListRulesOK, ListRulesReader, ListRulesUnauthorized, ListRulesUnauthorizedBody, RawMessage, Rule, RuleHandler, RuleMatch, SwaggerCreateRuleParameters, SwaggerGetRuleParameters, SwaggerHealthStatus, SwaggerJSONWebKey, SwaggerJSONWebKeySet, SwaggerListRulesParameters, SwaggerNotReadyStatus, SwaggerRule, SwaggerRuleHandler, SwaggerRuleMatch, SwaggerRuleResponse, SwaggerRulesResponse, SwaggerUpdateRuleParameters, SwaggerVersion, UpdateRuleForbidden, UpdateRuleForbiddenBody, UpdateRuleInternalServerError, UpdateRuleInternalServerErrorBody, UpdateRuleNotFound, UpdateRuleNotFoundBody, UpdateRuleOK, UpdateRuleReader, UpdateRuleUnauthorized, UpdateRuleUnauthorizedBody, Upstream, Version, ApiApi) {
   'use strict';
 
   /**
@@ -63,35 +63,245 @@
      */
     ApiClient: ApiClient,
     /**
-     * The AuthenticationDefaultSession model constructor.
-     * @property {module:model/AuthenticationDefaultSession}
+     * The CreateRuleCreated model constructor.
+     * @property {module:model/CreateRuleCreated}
      */
-    AuthenticationDefaultSession: AuthenticationDefaultSession,
+    CreateRuleCreated: CreateRuleCreated,
     /**
-     * The AuthenticationOAuth2ClientCredentialsRequest model constructor.
-     * @property {module:model/AuthenticationOAuth2ClientCredentialsRequest}
+     * The CreateRuleForbidden model constructor.
+     * @property {module:model/CreateRuleForbidden}
      */
-    AuthenticationOAuth2ClientCredentialsRequest: AuthenticationOAuth2ClientCredentialsRequest,
+    CreateRuleForbidden: CreateRuleForbidden,
     /**
-     * The AuthenticationOAuth2ClientCredentialsSession model constructor.
-     * @property {module:model/AuthenticationOAuth2ClientCredentialsSession}
+     * The CreateRuleForbiddenBody model constructor.
+     * @property {module:model/CreateRuleForbiddenBody}
      */
-    AuthenticationOAuth2ClientCredentialsSession: AuthenticationOAuth2ClientCredentialsSession,
+    CreateRuleForbiddenBody: CreateRuleForbiddenBody,
     /**
-     * The AuthenticationOAuth2IntrospectionRequest model constructor.
-     * @property {module:model/AuthenticationOAuth2IntrospectionRequest}
+     * The CreateRuleInternalServerError model constructor.
+     * @property {module:model/CreateRuleInternalServerError}
      */
-    AuthenticationOAuth2IntrospectionRequest: AuthenticationOAuth2IntrospectionRequest,
+    CreateRuleInternalServerError: CreateRuleInternalServerError,
     /**
-     * The AuthenticationOAuth2Session model constructor.
-     * @property {module:model/AuthenticationOAuth2Session}
+     * The CreateRuleInternalServerErrorBody model constructor.
+     * @property {module:model/CreateRuleInternalServerErrorBody}
      */
-    AuthenticationOAuth2Session: AuthenticationOAuth2Session,
+    CreateRuleInternalServerErrorBody: CreateRuleInternalServerErrorBody,
     /**
-     * The Authenticator model constructor.
-     * @property {module:model/Authenticator}
+     * The CreateRuleReader model constructor.
+     * @property {module:model/CreateRuleReader}
      */
-    Authenticator: Authenticator,
+    CreateRuleReader: CreateRuleReader,
+    /**
+     * The CreateRuleUnauthorized model constructor.
+     * @property {module:model/CreateRuleUnauthorized}
+     */
+    CreateRuleUnauthorized: CreateRuleUnauthorized,
+    /**
+     * The CreateRuleUnauthorizedBody model constructor.
+     * @property {module:model/CreateRuleUnauthorizedBody}
+     */
+    CreateRuleUnauthorizedBody: CreateRuleUnauthorizedBody,
+    /**
+     * The DecisionsForbidden model constructor.
+     * @property {module:model/DecisionsForbidden}
+     */
+    DecisionsForbidden: DecisionsForbidden,
+    /**
+     * The DecisionsForbiddenBody model constructor.
+     * @property {module:model/DecisionsForbiddenBody}
+     */
+    DecisionsForbiddenBody: DecisionsForbiddenBody,
+    /**
+     * The DecisionsInternalServerError model constructor.
+     * @property {module:model/DecisionsInternalServerError}
+     */
+    DecisionsInternalServerError: DecisionsInternalServerError,
+    /**
+     * The DecisionsInternalServerErrorBody model constructor.
+     * @property {module:model/DecisionsInternalServerErrorBody}
+     */
+    DecisionsInternalServerErrorBody: DecisionsInternalServerErrorBody,
+    /**
+     * The DecisionsNotFound model constructor.
+     * @property {module:model/DecisionsNotFound}
+     */
+    DecisionsNotFound: DecisionsNotFound,
+    /**
+     * The DecisionsNotFoundBody model constructor.
+     * @property {module:model/DecisionsNotFoundBody}
+     */
+    DecisionsNotFoundBody: DecisionsNotFoundBody,
+    /**
+     * The DecisionsOK model constructor.
+     * @property {module:model/DecisionsOK}
+     */
+    DecisionsOK: DecisionsOK,
+    /**
+     * The DecisionsReader model constructor.
+     * @property {module:model/DecisionsReader}
+     */
+    DecisionsReader: DecisionsReader,
+    /**
+     * The DecisionsUnauthorized model constructor.
+     * @property {module:model/DecisionsUnauthorized}
+     */
+    DecisionsUnauthorized: DecisionsUnauthorized,
+    /**
+     * The DecisionsUnauthorizedBody model constructor.
+     * @property {module:model/DecisionsUnauthorizedBody}
+     */
+    DecisionsUnauthorizedBody: DecisionsUnauthorizedBody,
+    /**
+     * The DeleteRuleForbidden model constructor.
+     * @property {module:model/DeleteRuleForbidden}
+     */
+    DeleteRuleForbidden: DeleteRuleForbidden,
+    /**
+     * The DeleteRuleForbiddenBody model constructor.
+     * @property {module:model/DeleteRuleForbiddenBody}
+     */
+    DeleteRuleForbiddenBody: DeleteRuleForbiddenBody,
+    /**
+     * The DeleteRuleInternalServerError model constructor.
+     * @property {module:model/DeleteRuleInternalServerError}
+     */
+    DeleteRuleInternalServerError: DeleteRuleInternalServerError,
+    /**
+     * The DeleteRuleInternalServerErrorBody model constructor.
+     * @property {module:model/DeleteRuleInternalServerErrorBody}
+     */
+    DeleteRuleInternalServerErrorBody: DeleteRuleInternalServerErrorBody,
+    /**
+     * The DeleteRuleNoContent model constructor.
+     * @property {module:model/DeleteRuleNoContent}
+     */
+    DeleteRuleNoContent: DeleteRuleNoContent,
+    /**
+     * The DeleteRuleNotFound model constructor.
+     * @property {module:model/DeleteRuleNotFound}
+     */
+    DeleteRuleNotFound: DeleteRuleNotFound,
+    /**
+     * The DeleteRuleNotFoundBody model constructor.
+     * @property {module:model/DeleteRuleNotFoundBody}
+     */
+    DeleteRuleNotFoundBody: DeleteRuleNotFoundBody,
+    /**
+     * The DeleteRuleReader model constructor.
+     * @property {module:model/DeleteRuleReader}
+     */
+    DeleteRuleReader: DeleteRuleReader,
+    /**
+     * The DeleteRuleUnauthorized model constructor.
+     * @property {module:model/DeleteRuleUnauthorized}
+     */
+    DeleteRuleUnauthorized: DeleteRuleUnauthorized,
+    /**
+     * The DeleteRuleUnauthorizedBody model constructor.
+     * @property {module:model/DeleteRuleUnauthorizedBody}
+     */
+    DeleteRuleUnauthorizedBody: DeleteRuleUnauthorizedBody,
+    /**
+     * The GetRuleForbidden model constructor.
+     * @property {module:model/GetRuleForbidden}
+     */
+    GetRuleForbidden: GetRuleForbidden,
+    /**
+     * The GetRuleForbiddenBody model constructor.
+     * @property {module:model/GetRuleForbiddenBody}
+     */
+    GetRuleForbiddenBody: GetRuleForbiddenBody,
+    /**
+     * The GetRuleInternalServerError model constructor.
+     * @property {module:model/GetRuleInternalServerError}
+     */
+    GetRuleInternalServerError: GetRuleInternalServerError,
+    /**
+     * The GetRuleInternalServerErrorBody model constructor.
+     * @property {module:model/GetRuleInternalServerErrorBody}
+     */
+    GetRuleInternalServerErrorBody: GetRuleInternalServerErrorBody,
+    /**
+     * The GetRuleNotFound model constructor.
+     * @property {module:model/GetRuleNotFound}
+     */
+    GetRuleNotFound: GetRuleNotFound,
+    /**
+     * The GetRuleNotFoundBody model constructor.
+     * @property {module:model/GetRuleNotFoundBody}
+     */
+    GetRuleNotFoundBody: GetRuleNotFoundBody,
+    /**
+     * The GetRuleOK model constructor.
+     * @property {module:model/GetRuleOK}
+     */
+    GetRuleOK: GetRuleOK,
+    /**
+     * The GetRuleReader model constructor.
+     * @property {module:model/GetRuleReader}
+     */
+    GetRuleReader: GetRuleReader,
+    /**
+     * The GetRuleUnauthorized model constructor.
+     * @property {module:model/GetRuleUnauthorized}
+     */
+    GetRuleUnauthorized: GetRuleUnauthorized,
+    /**
+     * The GetRuleUnauthorizedBody model constructor.
+     * @property {module:model/GetRuleUnauthorizedBody}
+     */
+    GetRuleUnauthorizedBody: GetRuleUnauthorizedBody,
+    /**
+     * The GetWellKnownForbidden model constructor.
+     * @property {module:model/GetWellKnownForbidden}
+     */
+    GetWellKnownForbidden: GetWellKnownForbidden,
+    /**
+     * The GetWellKnownForbiddenBody model constructor.
+     * @property {module:model/GetWellKnownForbiddenBody}
+     */
+    GetWellKnownForbiddenBody: GetWellKnownForbiddenBody,
+    /**
+     * The GetWellKnownJSONWebKeysInternalServerError model constructor.
+     * @property {module:model/GetWellKnownJSONWebKeysInternalServerError}
+     */
+    GetWellKnownJSONWebKeysInternalServerError: GetWellKnownJSONWebKeysInternalServerError,
+    /**
+     * The GetWellKnownJSONWebKeysInternalServerErrorBody model constructor.
+     * @property {module:model/GetWellKnownJSONWebKeysInternalServerErrorBody}
+     */
+    GetWellKnownJSONWebKeysInternalServerErrorBody: GetWellKnownJSONWebKeysInternalServerErrorBody,
+    /**
+     * The GetWellKnownJSONWebKeysOK model constructor.
+     * @property {module:model/GetWellKnownJSONWebKeysOK}
+     */
+    GetWellKnownJSONWebKeysOK: GetWellKnownJSONWebKeysOK,
+    /**
+     * The GetWellKnownJSONWebKeysReader model constructor.
+     * @property {module:model/GetWellKnownJSONWebKeysReader}
+     */
+    GetWellKnownJSONWebKeysReader: GetWellKnownJSONWebKeysReader,
+    /**
+     * The GetWellKnownOK model constructor.
+     * @property {module:model/GetWellKnownOK}
+     */
+    GetWellKnownOK: GetWellKnownOK,
+    /**
+     * The GetWellKnownReader model constructor.
+     * @property {module:model/GetWellKnownReader}
+     */
+    GetWellKnownReader: GetWellKnownReader,
+    /**
+     * The GetWellKnownUnauthorized model constructor.
+     * @property {module:model/GetWellKnownUnauthorized}
+     */
+    GetWellKnownUnauthorized: GetWellKnownUnauthorized,
+    /**
+     * The GetWellKnownUnauthorizedBody model constructor.
+     * @property {module:model/GetWellKnownUnauthorizedBody}
+     */
+    GetWellKnownUnauthorizedBody: GetWellKnownUnauthorizedBody,
     /**
      * The HealthNotReadyStatus model constructor.
      * @property {module:model/HealthNotReadyStatus}
@@ -103,15 +313,30 @@
      */
     HealthStatus: HealthStatus,
     /**
-     * The InlineResponse401 model constructor.
-     * @property {module:model/InlineResponse401}
+     * The InlineResponse500 model constructor.
+     * @property {module:model/InlineResponse500}
      */
-    InlineResponse401: InlineResponse401,
+    InlineResponse500: InlineResponse500,
     /**
-     * The IntrospectionResponse model constructor.
-     * @property {module:model/IntrospectionResponse}
+     * The IsInstanceAliveInternalServerError model constructor.
+     * @property {module:model/IsInstanceAliveInternalServerError}
      */
-    IntrospectionResponse: IntrospectionResponse,
+    IsInstanceAliveInternalServerError: IsInstanceAliveInternalServerError,
+    /**
+     * The IsInstanceAliveInternalServerErrorBody model constructor.
+     * @property {module:model/IsInstanceAliveInternalServerErrorBody}
+     */
+    IsInstanceAliveInternalServerErrorBody: IsInstanceAliveInternalServerErrorBody,
+    /**
+     * The IsInstanceAliveOK model constructor.
+     * @property {module:model/IsInstanceAliveOK}
+     */
+    IsInstanceAliveOK: IsInstanceAliveOK,
+    /**
+     * The IsInstanceAliveReader model constructor.
+     * @property {module:model/IsInstanceAliveReader}
+     */
+    IsInstanceAliveReader: IsInstanceAliveReader,
     /**
      * The JsonWebKey model constructor.
      * @property {module:model/JsonWebKey}
@@ -123,15 +348,100 @@
      */
     JsonWebKeySet: JsonWebKeySet,
     /**
-     * The OAuth2ClientCredentialsAuthentication model constructor.
-     * @property {module:model/OAuth2ClientCredentialsAuthentication}
+     * The JudgeForbidden model constructor.
+     * @property {module:model/JudgeForbidden}
      */
-    OAuth2ClientCredentialsAuthentication: OAuth2ClientCredentialsAuthentication,
+    JudgeForbidden: JudgeForbidden,
     /**
-     * The OAuth2IntrospectionAuthentication model constructor.
-     * @property {module:model/OAuth2IntrospectionAuthentication}
+     * The JudgeForbiddenBody model constructor.
+     * @property {module:model/JudgeForbiddenBody}
      */
-    OAuth2IntrospectionAuthentication: OAuth2IntrospectionAuthentication,
+    JudgeForbiddenBody: JudgeForbiddenBody,
+    /**
+     * The JudgeInternalServerError model constructor.
+     * @property {module:model/JudgeInternalServerError}
+     */
+    JudgeInternalServerError: JudgeInternalServerError,
+    /**
+     * The JudgeInternalServerErrorBody model constructor.
+     * @property {module:model/JudgeInternalServerErrorBody}
+     */
+    JudgeInternalServerErrorBody: JudgeInternalServerErrorBody,
+    /**
+     * The JudgeNotFound model constructor.
+     * @property {module:model/JudgeNotFound}
+     */
+    JudgeNotFound: JudgeNotFound,
+    /**
+     * The JudgeNotFoundBody model constructor.
+     * @property {module:model/JudgeNotFoundBody}
+     */
+    JudgeNotFoundBody: JudgeNotFoundBody,
+    /**
+     * The JudgeOK model constructor.
+     * @property {module:model/JudgeOK}
+     */
+    JudgeOK: JudgeOK,
+    /**
+     * The JudgeReader model constructor.
+     * @property {module:model/JudgeReader}
+     */
+    JudgeReader: JudgeReader,
+    /**
+     * The JudgeUnauthorized model constructor.
+     * @property {module:model/JudgeUnauthorized}
+     */
+    JudgeUnauthorized: JudgeUnauthorized,
+    /**
+     * The JudgeUnauthorizedBody model constructor.
+     * @property {module:model/JudgeUnauthorizedBody}
+     */
+    JudgeUnauthorizedBody: JudgeUnauthorizedBody,
+    /**
+     * The ListRulesForbidden model constructor.
+     * @property {module:model/ListRulesForbidden}
+     */
+    ListRulesForbidden: ListRulesForbidden,
+    /**
+     * The ListRulesForbiddenBody model constructor.
+     * @property {module:model/ListRulesForbiddenBody}
+     */
+    ListRulesForbiddenBody: ListRulesForbiddenBody,
+    /**
+     * The ListRulesInternalServerError model constructor.
+     * @property {module:model/ListRulesInternalServerError}
+     */
+    ListRulesInternalServerError: ListRulesInternalServerError,
+    /**
+     * The ListRulesInternalServerErrorBody model constructor.
+     * @property {module:model/ListRulesInternalServerErrorBody}
+     */
+    ListRulesInternalServerErrorBody: ListRulesInternalServerErrorBody,
+    /**
+     * The ListRulesOK model constructor.
+     * @property {module:model/ListRulesOK}
+     */
+    ListRulesOK: ListRulesOK,
+    /**
+     * The ListRulesReader model constructor.
+     * @property {module:model/ListRulesReader}
+     */
+    ListRulesReader: ListRulesReader,
+    /**
+     * The ListRulesUnauthorized model constructor.
+     * @property {module:model/ListRulesUnauthorized}
+     */
+    ListRulesUnauthorized: ListRulesUnauthorized,
+    /**
+     * The ListRulesUnauthorizedBody model constructor.
+     * @property {module:model/ListRulesUnauthorizedBody}
+     */
+    ListRulesUnauthorizedBody: ListRulesUnauthorizedBody,
+    /**
+     * The RawMessage model constructor.
+     * @property {module:model/RawMessage}
+     */
+    RawMessage: RawMessage,
     /**
      * The Rule model constructor.
      * @property {module:model/Rule}
@@ -148,11 +458,6 @@
      */
     RuleMatch: RuleMatch,
     /**
-     * The Session model constructor.
-     * @property {module:model/Session}
-     */
-    Session: Session,
-    /**
      * The SwaggerCreateRuleParameters model constructor.
      * @property {module:model/SwaggerCreateRuleParameters}
      */
@@ -163,10 +468,45 @@
      */
     SwaggerGetRuleParameters: SwaggerGetRuleParameters,
     /**
+     * The SwaggerHealthStatus model constructor.
+     * @property {module:model/SwaggerHealthStatus}
+     */
+    SwaggerHealthStatus: SwaggerHealthStatus,
+    /**
+     * The SwaggerJSONWebKey model constructor.
+     * @property {module:model/SwaggerJSONWebKey}
+     */
+    SwaggerJSONWebKey: SwaggerJSONWebKey,
+    /**
+     * The SwaggerJSONWebKeySet model constructor.
+     * @property {module:model/SwaggerJSONWebKeySet}
+     */
+    SwaggerJSONWebKeySet: SwaggerJSONWebKeySet,
+    /**
      * The SwaggerListRulesParameters model constructor.
      * @property {module:model/SwaggerListRulesParameters}
      */
     SwaggerListRulesParameters: SwaggerListRulesParameters,
+    /**
+     * The SwaggerNotReadyStatus model constructor.
+     * @property {module:model/SwaggerNotReadyStatus}
+     */
+    SwaggerNotReadyStatus: SwaggerNotReadyStatus,
+    /**
+     * The SwaggerRule model constructor.
+     * @property {module:model/SwaggerRule}
+     */
+    SwaggerRule: SwaggerRule,
+    /**
+     * The SwaggerRuleHandler model constructor.
+     * @property {module:model/SwaggerRuleHandler}
+     */
+    SwaggerRuleHandler: SwaggerRuleHandler,
+    /**
+     * The SwaggerRuleMatch model constructor.
+     * @property {module:model/SwaggerRuleMatch}
+     */
+    SwaggerRuleMatch: SwaggerRuleMatch,
     /**
      * The SwaggerRuleResponse model constructor.
      * @property {module:model/SwaggerRuleResponse}
@@ -183,6 +523,61 @@
      */
     SwaggerUpdateRuleParameters: SwaggerUpdateRuleParameters,
     /**
+     * The SwaggerVersion model constructor.
+     * @property {module:model/SwaggerVersion}
+     */
+    SwaggerVersion: SwaggerVersion,
+    /**
+     * The UpdateRuleForbidden model constructor.
+     * @property {module:model/UpdateRuleForbidden}
+     */
+    UpdateRuleForbidden: UpdateRuleForbidden,
+    /**
+     * The UpdateRuleForbiddenBody model constructor.
+     * @property {module:model/UpdateRuleForbiddenBody}
+     */
+    UpdateRuleForbiddenBody: UpdateRuleForbiddenBody,
+    /**
+     * The UpdateRuleInternalServerError model constructor.
+     * @property {module:model/UpdateRuleInternalServerError}
+     */
+    UpdateRuleInternalServerError: UpdateRuleInternalServerError,
+    /**
+     * The UpdateRuleInternalServerErrorBody model constructor.
+     * @property {module:model/UpdateRuleInternalServerErrorBody}
+     */
+    UpdateRuleInternalServerErrorBody: UpdateRuleInternalServerErrorBody,
+    /**
+     * The UpdateRuleNotFound model constructor.
+     * @property {module:model/UpdateRuleNotFound}
+     */
+    UpdateRuleNotFound: UpdateRuleNotFound,
+    /**
+     * The UpdateRuleNotFoundBody model constructor.
+     * @property {module:model/UpdateRuleNotFoundBody}
+     */
+    UpdateRuleNotFoundBody: UpdateRuleNotFoundBody,
+    /**
+     * The UpdateRuleOK model constructor.
+     * @property {module:model/UpdateRuleOK}
+     */
+    UpdateRuleOK: UpdateRuleOK,
+    /**
+     * The UpdateRuleReader model constructor.
+     * @property {module:model/UpdateRuleReader}
+     */
+    UpdateRuleReader: UpdateRuleReader,
+    /**
+     * The UpdateRuleUnauthorized model constructor.
+     * @property {module:model/UpdateRuleUnauthorized}
+     */
+    UpdateRuleUnauthorized: UpdateRuleUnauthorized,
+    /**
+     * The UpdateRuleUnauthorizedBody model constructor.
+     * @property {module:model/UpdateRuleUnauthorizedBody}
+     */
+    UpdateRuleUnauthorizedBody: UpdateRuleUnauthorizedBody,
+    /**
      * The Upstream model constructor.
      * @property {module:model/Upstream}
      */
@@ -193,30 +588,10 @@
      */
     Version: Version,
     /**
-     * The DefaultApi service constructor.
-     * @property {module:api/DefaultApi}
+     * The ApiApi service constructor.
+     * @property {module:api/ApiApi}
      */
-    DefaultApi: DefaultApi,
-    /**
-     * The HealthApi service constructor.
-     * @property {module:api/HealthApi}
-     */
-    HealthApi: HealthApi,
-    /**
-     * The JudgeApi service constructor.
-     * @property {module:api/JudgeApi}
-     */
-    JudgeApi: JudgeApi,
-    /**
-     * The RuleApi service constructor.
-     * @property {module:api/RuleApi}
-     */
-    RuleApi: RuleApi,
-    /**
-     * The VersionApi service constructor.
-     * @property {module:api/VersionApi}
-     */
-    VersionApi: VersionApi
+    ApiApi: ApiApi
   };
 
   return exports;

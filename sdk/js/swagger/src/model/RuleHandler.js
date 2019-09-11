@@ -64,7 +64,7 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('config')) {
-        obj['config'] = ApiClient.convertToType(data['config'], 'String');
+        obj['config'] = ApiClient.convertToType(data['config'], Object);
       }
       if (data.hasOwnProperty('handler')) {
         obj['handler'] = ApiClient.convertToType(data['handler'], 'String');
@@ -75,7 +75,7 @@
 
   /**
    * Config contains the configuration for the handler. Please read the user guide for a complete list of each handler's available settings.
-   * @member {String} config
+   * @member {Object} config
    */
   exports.prototype['config'] = undefined;
   /**

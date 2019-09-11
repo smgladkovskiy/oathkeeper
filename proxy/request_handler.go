@@ -23,83 +23,75 @@ package proxy
 import (
 	"net/http"
 
+	"github.com/ory/oathkeeper/x"
+
+	"github.com/ory/oathkeeper/pipeline/authn"
+	"github.com/ory/oathkeeper/pipeline/authz"
+	"github.com/ory/oathkeeper/pipeline/mutate"
+
+	"github.com/pkg/errors"
+
 	"github.com/ory/oathkeeper/helper"
 	"github.com/ory/oathkeeper/rule"
-	"github.com/pkg/errors"
-	"github.com/sirupsen/logrus"
 )
 
+type requestHandlerRegistry interface {
+	x.RegistryLogger
+
+	authn.Registry
+	authz.Registry
+	mutate.Registry
+}
+
 type RequestHandler struct {
-	Logger                 logrus.FieldLogger
-	AuthorizationHandlers  map[string]Authorizer
-	AuthenticationHandlers map[string]Authenticator
-	CredentialIssuers      map[string]CredentialsIssuer
-	Issuer                 string
+	r requestHandlerRegistry
 }
 
-func NewRequestHandler(
-	l logrus.FieldLogger,
-	authenticationHandlers []Authenticator,
-	authorizationHandlers []Authorizer,
-	credentialIssuers []CredentialsIssuer,
-) *RequestHandler {
-	if l == nil {
-		l = logrus.New()
-	}
-
-	j := &RequestHandler{
-		Logger:                 l,
-		AuthorizationHandlers:  map[string]Authorizer{},
-		AuthenticationHandlers: map[string]Authenticator{},
-		CredentialIssuers:      map[string]CredentialsIssuer{},
-	}
-
-	for _, h := range authorizationHandlers {
-		j.AuthorizationHandlers[h.GetID()] = h
-	}
-
-	for _, h := range authenticationHandlers {
-		j.AuthenticationHandlers[h.GetID()] = h
-	}
-
-	for _, h := range credentialIssuers {
-		j.CredentialIssuers[h.GetID()] = h
-	}
-
-	return j
+func NewRequestHandler(r requestHandlerRegistry) *RequestHandler {
+	return &RequestHandler{r: r}
 }
 
-func (d *RequestHandler) HandleRequest(r *http.Request, rl *rule.Rule) error {
+func (d *RequestHandler) HandleRequest(r *http.Request, rl *rule.Rule) (http.Header, error) {
 	var err error
-	var session *AuthenticationSession
+	var session *authn.AuthenticationSession
 	var found bool
 
 	if len(rl.Authenticators) == 0 {
 		err = errors.New("No authentication handler was set in the rule")
-		d.Logger.WithError(err).
+		d.r.Logger().WithError(err).
 			WithField("granted", false).
 			WithField("access_url", r.URL.String()).
 			WithField("reason_id", "authentication_handler_missing").
 			Warn("No authentication handler was set in the rule")
-		return err
+		return nil, err
 	}
 
 	for _, a := range rl.Authenticators {
-		anh, ok := d.AuthenticationHandlers[a.Handler]
-		if !ok {
-			d.Logger.
+		anh, err := d.r.PipelineAuthenticator(a.Handler)
+		if err != nil {
+			d.r.Logger().WithError(err).
 				WithField("granted", false).
 				WithField("access_url", r.URL.String()).
 				WithField("authentication_handler", a.Handler).
 				WithField("reason_id", "unknown_authentication_handler").
 				Warn("Unknown authentication handler requested")
-			return errors.New("Unknown authentication handler requested")
+			return nil, err
+		}
+
+		if err := anh.Validate(); err != nil {
+			d.r.Logger().WithError(err).
+				WithField("granted", false).
+				WithField("access_url", r.URL.String()).
+				WithField("authentication_handler", a.Handler).
+				WithField("reason_id", "invalid_authentication_handler").
+				Warn("Unable to validate use of authentication handler")
+			return nil, err
 		}
 
 		session, err = anh.Authenticate(r, a.Config, rl)
 		if err != nil {
 			switch errors.Cause(err).Error() {
-			case ErrAuthenticatorNotResponsible.Error():
+			case authn.ErrAuthenticatorNotResponsible.Error():
 				// The authentication handler is not responsible for handling this request, skip to the next handler
 				break
 			//case ErrAuthenticatorBypassed.Error():
@@ -107,13 +99,13 @@ func (d *RequestHandler) HandleRequest(r *http.Request, rl *rule.Rule) error {
 			// be forwarded to its final destination.
 			//return nil
 			default:
-				d.Logger.WithError(err).
+				d.r.Logger().WithError(err).
 					WithField("granted", false).
 					WithField("access_url", r.URL.String()).
 					WithField("authentication_handler", a.Handler).
 					WithField("reason_id", "authentication_handler_error").
 					Warn("The authentication handler encountered an error")
-				return err
+				return nil, err
 			}
 		} else {
 			// The first authenticator that matches must return the session
@@ -124,50 +116,89 @@ func (d *RequestHandler) HandleRequest(r *http.Request, rl *rule.Rule) error {
 
 	if !found {
 		err := errors.WithStack(helper.ErrUnauthorized)
-		d.Logger.WithError(err).
+		d.r.Logger().WithError(err).
 			WithField("granted", false).
 			WithField("access_url", r.URL.String()).
 			WithField("reason_id", "authentication_handler_no_match").
 			Warn("No authentication handler was responsible for handling the authentication request")
-		return err
+		return nil, err
 	}
 
-	azh, ok := d.AuthorizationHandlers[rl.Authorizer.Handler]
-	if !ok {
-		d.Logger.
+	azh, err := d.r.PipelineAuthorizer(rl.Authorizer.Handler)
+	if err != nil {
+		d.r.Logger().WithError(err).
 			WithField("granted", false).
 			WithField("access_url", r.URL.String()).
 			WithField("authorization_handler", rl.Authorizer.Handler).
 			WithField("reason_id", "unknown_authorization_handler").
 			Warn("Unknown authentication handler requested")
-		return errors.New("Unknown authorization handler requested")
+		return nil, err
+	}
+
+	if err := azh.Validate(); err != nil {
+		d.r.Logger().WithError(err).
+			WithField("granted", false).
+			WithField("access_url", r.URL.String()).
+			WithField("authorization_handler", rl.Authorizer.Handler).
+			WithField("reason_id", "invalid_authorization_handler").
+			Warn("Unable to validate use of authorization handler")
+		return nil, err
 	}
 
 	if err := azh.Authorize(r, session, rl.Authorizer.Config, rl); err != nil {
-		d.Logger.
+		d.r.Logger().
 			WithError(err).
 			WithField("granted", false).
 			WithField("access_url", r.URL.String()).
 			WithField("authorization_handler", rl.Authorizer.Handler).
 			WithField("reason_id", "authorization_handler_error").
 			Warn("The authorization handler encountered an error")
-		return err
+		return nil, err
 	}
 
-	sh, ok := d.CredentialIssuers[rl.CredentialsIssuer.Handler]
-	if !ok {
-		d.Logger.
+	if len(rl.Mutators) == 0 {
+		err = errors.New("No mutation handler was set in the rule")
+		d.r.Logger().WithError(err).
 			WithField("granted", false).
 			WithField("access_url", r.URL.String()).
-			WithField("session_handler", rl.CredentialsIssuer.Handler).
-			WithField("reason_id", "unknown_credential_issuer").
-			Warn("Unknown credential issuer requested")
-		return errors.New("Unknown credential issuer requested")
+			WithField("reason_id", "mutation_handler_missing").
+			Warn("No mutation handler was set in the rule")
+		return nil, err
 	}
 
-	if err := sh.Issue(r, session, rl.CredentialsIssuer.Config, rl); err != nil {
-		return err
+	for _, m := range rl.Mutators {
+		sh, err := d.r.PipelineMutator(m.Handler)
+		if err != nil {
+			d.r.Logger().WithError(err).
+				WithField("granted", false).
+				WithField("access_url", r.URL.String()).
+				WithField("session_handler", m.Handler).
+				WithField("reason_id", "unknown_mutation_handler").
+				Warn("Unknown mutator requested")
+			return nil, err
+		}
+
+		if err := sh.Validate(); err != nil {
+			d.r.Logger().WithError(err).
+				WithField("granted", false).
+				WithField("access_url", r.URL.String()).
+				WithField("authorization_handler", m.Handler).
+				WithField("reason_id", "invalid_mutation_handler").
+				Warn("Invalid mutator requested")
+			return nil, err
+		}
+
+		if err := sh.Mutate(r, session, m.Config, rl); err != nil {
+			d.r.Logger().WithError(err).
+				WithField("granted", false).
+				WithField("access_url", r.URL.String()).
+				WithField("authorization_handler", m.Handler).
+				WithField("reason_id", "mutation_handler_error").
+				Warn("The mutation handler encountered an error")
+			return nil, err
+		}
+
 	}
 
-	return nil
+	return session.Header, nil
 }

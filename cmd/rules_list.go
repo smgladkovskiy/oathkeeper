@@ -22,34 +22,37 @@ package cmd
 
 import (
 	"fmt"
-	"net/http"
 
-	"github.com/ory/oathkeeper/pkg"
-	"github.com/ory/oathkeeper/sdk/go/oathkeeper"
+	"github.com/ory/x/flagx"
+
 	"github.com/spf13/cobra"
+
+	"github.com/ory/oathkeeper/sdk/go/oathkeeper/client/api"
+	"github.com/ory/x/cmdx"
 )
 
-// listCmd represents the list command
-var listCmd = &cobra.Command{
+// rulesListCmd represents the list command
+var rulesListCmd = &cobra.Command{
 	Use:   "list",
-	Short: "List all available rules",
+	Short: "List access rules",
 	Long: `Usage example:
 
 	oathkeeper rules --endpoint=http://localhost:4456/ list
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		endpoint, _ := cmd.Flags().GetString("endpoint")
-		if endpoint == "" {
-			fatalf("Please specify the endpoint url using the --endpoint flag, for more information use `oathkeeper help rules`")
-		}
+		client := newClient(cmd)
 
-		client := oathkeeper.NewSDK(endpoint)
-		rules, response, err := client.ListRules(pkg.RulesUpperLimit, 0)
-		checkResponse(response, err, http.StatusOK)
-		fmt.Println(formatResponse(rules))
+		limit, page := int64(flagx.MustGetInt(cmd, "limit")), int64(flagx.MustGetInt(cmd, "page"))
+		offset := (limit * page) - limit
+
+		r, err := client.API.ListRules(api.NewListRulesParams().WithLimit(&limit).WithOffset(&offset))
+		cmdx.Must(err, "%s", err)
+		fmt.Println(cmdx.FormatResponse(r.Payload))
 	},
 }
 
 func init() {
-	rulesCmd.AddCommand(listCmd)
+	rulesCmd.AddCommand(rulesListCmd)
+	rulesListCmd.Flags().Int("limit", 20, "The maximum amount of policies returned.")
+	rulesListCmd.Flags().Int("page", 1, "The number of page.")
 }

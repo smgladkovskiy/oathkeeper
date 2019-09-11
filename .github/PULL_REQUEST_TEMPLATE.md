@@ -24,16 +24,17 @@ Put an `x` in the boxes that apply. You can also fill these out after creating t
 them, don't hesitate to ask. We're here to help! This is simply a reminder of what we are going to look for before merging your code.
 -->
 
-- [ ] I have read the [contributing guidelines](CONTRIBUTING.md)
-- [ ] I confirm that this pull request does not address a security vulnerability. If this pull request addresses a security
-vulnerability, I confirm that I got green light (please contact [hi@ory.sh](mailto:hi@ory.sh)) from the maintainers to push the changes.
-- [ ] I signed the [Developer's Certificate of Origin](https://github.com/ory/keto/blob/master/CONTRIBUTING.md#developers-certificate-of-origin)
-by signing my commit(s). You can amend your signature to the most recent commit by using `git commit --amend -s`. If you
-amend the commit, you might need to force push using `git push --force HEAD:<branch>`. Please be very careful when using
-force push.
+- [ ] I have read the [contributing guidelines](../blob/master/CONTRIBUTING.md)
+- [ ] I have read the [security policy](../security/policy)
+- [ ] I confirm that this pull request does not address a security
+      vulnerability. If this pull request addresses a security vulnerability, I
+      confirm that I got green light (please contact
+      [security@ory.sh](mailto:security@ory.sh)) from the maintainers to push
+      the changes.
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] I have added necessary documentation within the code base (if appropriate)
-- [ ] I have documented my changes in the [developer guide](https://github.com/ory/docs) (if appropriate)
+- [ ] I have documented my changes in the
+      [developer guide](https://github.com/ory/docs) (if appropriate)
 
 ## Further comments
 

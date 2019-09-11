@@ -23,20 +23,27 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"time"
 
+	"github.com/fsnotify/fsnotify"
+	"github.com/gobuffalo/packr/v2"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
-)
 
-var cfgFile string
+	"github.com/ory/gojsonschema"
+
+	"github.com/ory/viper"
+	"github.com/ory/x/viperx"
+
+	"github.com/ory/x/logrusx"
+)
 
 var (
-	Version   = "dev-master"
-	BuildTime = time.Now().String()
-	GitHash   = "undefined"
+	Version = "master"
+	Date    = "undefined"
+	Commit  = "undefined"
 )
+
+var schemas = packr.New("schemas", "../.schemas")
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
@@ -56,53 +63,42 @@ func Execute() {
 var logger *logrus.Logger
 
 func init() {
-	cobra.OnInitialize(initConfig)
-
-	// Here you will define your flags and configuration settings.
-	// Cobra supports Persistent Flags, which, if defined here,
-	// will be global for your application.
-
-	// RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.oathkeeper.yaml)")
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	RootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-}
-
-// initConfig reads in config file and ENV variables if set.
-func initConfig() {
-	if cfgFile != "" { // enable ability to specify config file via flag
-		viper.SetConfigFile(cfgFile)
-	}
-
-	viper.SetConfigName(".oathkeeper") // name of config file (without extension)
-	viper.AddConfigPath("$HOME")       // adding home directory as first search path
-	viper.AutomaticEnv()               // read in environment variables that match
-
-	viper.SetDefault("LOG_LEVEL", "info")
-	viper.SetDefault("PORT", "4455")
-	viper.SetDefault("RULES_REFRESH_INTERVAL", "5s")
-
-	viper.SetDefault("CREDENTIALS_ISSUER_ID_TOKEN_JWK_REFRESH_INTERVAL", "5m")
-	viper.SetDefault("CREDENTIALS_ISSUER_ID_TOKEN_HYDRA_JWK_SET_ID", "oathkeeper:id-token")
-	viper.SetDefault("CREDENTIALS_ISSUER_ID_TOKEN_ALGORITHM", "HS256")
-
-	viper.SetDefault("AUTHENTICATOR_ANONYMOUS_USERNAME", "anonymous")
-	viper.SetDefault("CREDENTIALS_ISSUER_ID_TOKEN_LIFESPAN", "10m")
-	viper.SetDefault("CREDENTIALS_ISSUER_ID_TOKEN_ISSUER", "http://localhost:"+viper.GetString("PORT"))
-
-	viper.SetDefault("AUTHENTICATOR_OAUTH2_INTROSPECTION_SCOPE_STRATEGY", "EXACT")
-	viper.SetDefault("AUTHENTICATOR_JWT_SCOPE_STRATEGY", "EXACT")
-
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
-	}
-
-	logLevel, err := logrus.ParseLevel(viper.GetString("LOG_LEVEL"))
+	schema, err := schemas.Find("config.schema.json")
 	if err != nil {
-		logLevel = logrus.InfoLevel
+		panic(err)
 	}
 
-	logger = logrus.New()
-	logger.Level = logLevel
+	cobra.OnInitialize(func() {
+		viperx.InitializeConfig("oathkeeper", "", nil)
+
+		logger = logrusx.New()
+
+		if err := viperx.Validate(gojsonschema.NewBytesLoader(schema)); err != nil {
+			viperx.LoggerWithValidationErrorFields(logger, err).
+				WithError(err).
+				Fatal("The configuration is invalid and could not be loaded.")
+		}
+
+		viperx.AddWatcher(func(event fsnotify.Event) error {
+			if err := viperx.Validate(gojsonschema.NewBytesLoader(schema)); err != nil {
+				viperx.LoggerWithValidationErrorFields(logger, err).
+					WithError(err).
+					Error("The changed configuration is invalid and could not be loaded. Rolling back to the last working configuration revision. Please address the validation errors before restarting ORY Oathkeeper.")
+				return viperx.ErrRollbackConfigurationChanges
+			}
+			return nil
+		})
+
+		viperx.WatchConfig(logger, &viperx.WatchOptions{
+			Immutables: []string{"serve", "profiling", "log"},
+			OnImmutableChange: func(key string) {
+				logger.
+					WithField("key", key).
+					WithField("reset_to", fmt.Sprintf("%v", viper.Get(key))).
+					Error("A configuration value marked as immutable has changed. Rolling back to the last working configuration revision. To reload the values please restart ORY Oathkeeper.")
+			},
+		})
+	})
+
+	viperx.RegisterConfigFlag(RootCmd, "oathkeeper")
 }
