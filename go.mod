@@ -8,6 +8,7 @@ require (
 	github.com/auth0/go-jwt-middleware v0.0.0-20170425171159-5493cabe49f7
 	github.com/bxcodec/faker v2.0.1+incompatible
 	github.com/cenkalti/backoff v2.1.1+incompatible
+	github.com/codegangsta/negroni v1.0.0 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/ghodss/yaml v1.0.0
